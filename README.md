@@ -26,8 +26,8 @@ Python is needed only for the optional local server. There is no npm install or 
 
 ## Important details
 
-- Instagram: https://www.instagram.com/morphic_devs
-- Email: morphicdevs@gmail.com
+- Instagram: https://www.instagram.com/amluvo_dev
+- Email: amluvodev@gmail.com
 - The form opens a mailto email draft; it does not send messages or use a backend. Visitors review and send from their email app. A downloadable text brief is also available.
 - Portfolio concepts and figures are illustrative, not real client projects.
 - Google Fonts needs an internet connection. System fonts are used when unavailable.
