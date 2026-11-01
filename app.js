@@ -7,11 +7,33 @@ window.addEventListener('beforeunload', () => {
   window.scrollTo(0, 0);
 });
 
+// Splash Screen Controller (matching desandu-s-portfolio timing)
+const splash = document.querySelector('#splash-screen');
+if (splash) {
+  let dismissed = false;
+  const dismissSplash = () => {
+    if (dismissed) return;
+    dismissed = true;
+    splash.classList.add('splash-hidden');
+    setTimeout(() => {
+      if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+    }, 550);
+  };
+
+  // Dismiss after letter reveal and expanding rule complete
+  window.addEventListener('load', () => {
+    setTimeout(dismissSplash, 2100);
+  });
+  // Fallback timeout in case load already fired
+  setTimeout(dismissSplash, 2600);
+}
+
 const body = document.body;
 const theme = document.querySelector('.theme');
 
 try {
-  if (localStorage.getItem('amluvo-theme') === 'dark') body.classList.add('dark');
+  const savedTheme = localStorage.getItem('3navo-theme') || localStorage.getItem('amluvo-theme');
+  if (savedTheme === 'dark') body.classList.add('dark');
 } catch {}
 
 function themeLabel() {
@@ -24,7 +46,7 @@ theme.addEventListener('click', () => {
   body.classList.toggle('dark');
   themeLabel();
   try {
-    localStorage.setItem('amluvo-theme', body.classList.contains('dark') ? 'dark' : 'light');
+    localStorage.setItem('3navo-theme', body.classList.contains('dark') ? 'dark' : 'light');
   } catch {}
 });
 
@@ -92,19 +114,19 @@ dialog.addEventListener('click', e => {
 const form = document.querySelector('#brief');
 function briefText() {
   const f = new FormData(form);
-  return `AMLUVO DEV — PROJECT BRIEF\n\nName: ${f.get('name')}\nEmail: ${f.get('email')}\nService: ${f.get('service')}\n\nProject overview\n${f.get('message')}\n`;
+  return `3.NAVO — PROJECT BRIEF\nSlogan: Plan. Build. Grow.\n\nName: ${f.get('name')}\nEmail: ${f.get('email')}\nService: ${f.get('service')}\n\nProject overview\n${f.get('message')}\n`;
 }
 
 form.addEventListener('submit', e => {
   e.preventDefault();
-  const subject = 'Project inquiry — ' + new FormData(form).get('service');
+  const subject = '3.NAVO Project Inquiry — ' + new FormData(form).get('service');
   window.location.href =
-    'mailto:amluvodev@gmail.com?subject=' +
+    'mailto:3.navodev@gmail.com?subject=' +
     encodeURIComponent(subject) +
     '&body=' +
     encodeURIComponent(briefText());
   document.querySelector('#form-status').textContent =
-    'Your email draft is ready to open. If no email app opens, download your brief and send it to amluvodev@gmail.com.';
+    'Your email draft is ready to open. If no email app opens, download your brief and send it to 3.navodev@gmail.com.';
 });
 
 document.querySelector('#download-brief').addEventListener('click', () => {
@@ -112,11 +134,11 @@ document.querySelector('#download-brief').addEventListener('click', () => {
   const url = URL.createObjectURL(new Blob([briefText()], { type: 'text/plain;charset=utf-8' }));
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'Amluvo-Dev-Project-Brief.txt';
+  a.download = '3.NAVO-Project-Brief.txt';
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 2000);
   document.querySelector('#form-status').textContent =
-    'Brief downloaded. Email it to amluvodev@gmail.com when you’re ready.';
+    'Brief downloaded. Email it to 3.navodev@gmail.com when you’re ready.';
 });
 
 document.querySelector('#year').textContent = new Date().getFullYear();
